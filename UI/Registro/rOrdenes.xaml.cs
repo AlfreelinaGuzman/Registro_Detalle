@@ -28,16 +28,15 @@ namespace Registro_Detalle.UI.Registro
         public rOrdenes ()
         {
             InitializeComponent();
-            /*ProductosIDComboBox.ItemsSource = OrdenesBLL.GetList();
+            ProductosIDComboBox.ItemsSource = ProductosBLL.GetList();
             ProductosIDComboBox.SelectedValuePath = "ProductosID";
             ProductosIDComboBox.DisplayMemberPath = "ProductosID";
 
-            SuplidorIDComboBox.ItemsSource = OrdenesBLL.GetList();
+            SuplidorIDComboBox.ItemsSource = SuplidoresBLL.GetList();
             SuplidorIDComboBox.SelectedValuePath = "SuplidorID";
             SuplidorIDComboBox.DisplayMemberPath = "SuplidorID";
-            */
-            this.DataContext = ordenes;
-            OrdenIDTextBox.Text = "0";
+        
+            Limpiar();
         
         }
 
@@ -45,6 +44,7 @@ namespace Registro_Detalle.UI.Registro
         {
             OrdenIDTextBox.Text = "0";
             FechaDatePickerTextBox.Text = Convert.ToString(DateTime.Now);
+            MontoTextBox.Text = "0";
 
           // TotalTextBox_TextChanged.ItemsSouce = new List<MorasDetalle>();
             Actualizar();

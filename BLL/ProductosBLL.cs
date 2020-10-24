@@ -10,15 +10,14 @@ using System.Linq;
 
 namespace Registro_Detalle.BLL
 {
-    public class OrdenesBLL
+    public class ProductosBLL
     {
-
-        public static bool Guardar(Ordenes ordenes)
+          public static bool Guardar(Productos productos)
         {
-            if (!Existe(ordenes.OrdenID))
-                return Insertar(ordenes);
+            if (!Existe(productos.ProductosID ))
+                return Insertar(productos);
             else
-                return Modificar(ordenes);
+                return Modificar(productos);
         }
 
         private static bool Existe(int id)
@@ -26,7 +25,7 @@ namespace Registro_Detalle.BLL
             bool existe;
             Contexto contexto = new Contexto();
             try{
-                existe = contexto.Ordenes.Any(o => o.OrdenID== id);
+                existe = contexto.Productos.Any(o => o.ProductosID== id);
             }
             catch(Exception){
                 throw;
@@ -37,27 +36,15 @@ namespace Registro_Detalle.BLL
             return existe;
         }
         
-        private static bool Insertar(Ordenes ordenes)
+        private static bool Insertar(Productos productos)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
-                contexto.Ordenes.Add(ordenes);
+                contexto.Productos.Add(productos);
                 paso = contexto.SaveChanges() > 0;
-
-              /*  List<OrdenesDetalle> detalle = ordenes.OrdenesDetalle;
-                foreach (OrdenesDetalle det in detalle)
-                {
-                    Productos productos = OrdenesBLL.Buscar(det.ProductosID);
-                    if (productos != null)
-                    {
-                        productos.Productos += Convert.ToSingle(det.Monto);
-                        OrdenesBLL.Guardar(ProductosID);
-                    }
-                }
-             */
-                
+  
             }
             catch (Exception)
             {
@@ -70,16 +57,16 @@ namespace Registro_Detalle.BLL
             return paso;
         }
 
-        public static bool Modificar(Ordenes ordenes){
+        public static bool Modificar(Productos productos){
             bool Modificado = false;
             Contexto contexto = new Contexto();
             try{
-                contexto.Database.ExecuteSqlRaw($"Delete FROM OrdenesDetalle Where OrdenID = {ordenes.OrdenID}");
-                foreach(var anterior in ordenes.OrdenesDetalle)
+                contexto.Database.ExecuteSqlRaw($"Delete FROM OrdenesDetalle Where ProductosID = {productos.ProductosID}");
+                foreach(var anterior in productos.OrdenesDetalle)
                 {
                     contexto.Entry(anterior).State =EntityState.Added;
                 }
-                contexto.Entry(ordenes).State = EntityState.Modified;
+                contexto.Entry(productos).State = EntityState.Modified;
                 Modificado = (contexto.SaveChanges()>0);
             }
             catch(Exception){
@@ -95,8 +82,8 @@ namespace Registro_Detalle.BLL
             bool Eliminado = false;
             Contexto contexto = new Contexto();
             try{
-                var ordenes = contexto.Ordenes.Find(id);
-                contexto.Entry(ordenes).State = EntityState.Deleted;
+                var productos = contexto.Ordenes.Find(id);
+                contexto.Entry(productos).State = EntityState.Deleted;
                 Eliminado = contexto.SaveChanges()>0;
             }
 
@@ -109,11 +96,11 @@ namespace Registro_Detalle.BLL
             return Eliminado;
         }
 
-        public static Ordenes Buscar(int id){
-            Ordenes ordenes = new Ordenes();
+        public static Productos Buscar(int id){
+            Productos productos = new Productos();
             Contexto contexto = new Contexto();
             try{
-                ordenes = contexto.Ordenes.Include(x => x.OrdenesDetalle).Where(p => p.OrdenID  == id).SingleOrDefault();
+                productos = contexto.Productos.Include(x => x.OrdenesDetalle).Where(p => p.ProductosID  == id).SingleOrDefault();
             }
             catch(Exception){
                 throw;
@@ -121,17 +108,17 @@ namespace Registro_Detalle.BLL
             } finally{
                 contexto.Dispose();
             }
-            return ordenes;
+            return productos;
         }
 
-    public static List <Ordenes> GetList(Expression<Func<Ordenes, bool>> ordenes)
+        public static List <Productos> GetList(Expression<Func<Productos, bool>> productos)
         {
-            List<Ordenes> Lista = new List<Ordenes>();
+            List<Productos> Lista = new List<Productos>();
             Contexto contexto = new Contexto();
 
             try
             {
-                Lista = contexto.Ordenes.Where(ordenes).ToList();
+                Lista = contexto.Productos.Where(productos).ToList();
             }
             catch (Exception)
             {
@@ -143,6 +130,5 @@ namespace Registro_Detalle.BLL
             }
             return Lista;
     }
-
     }
 }

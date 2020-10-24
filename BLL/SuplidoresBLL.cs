@@ -10,15 +10,15 @@ using System.Linq;
 
 namespace Registro_Detalle.BLL
 {
-    public class OrdenesBLL
+    public class SuplidoresBLL
     {
-
-        public static bool Guardar(Ordenes ordenes)
+        
+          public static bool Guardar(Suplidores suplidores)
         {
-            if (!Existe(ordenes.OrdenID))
-                return Insertar(ordenes);
+            if (!Existe(suplidores.SuplidorID))
+                return Insertar(suplidores);
             else
-                return Modificar(ordenes);
+                return Modificar(suplidores);
         }
 
         private static bool Existe(int id)
@@ -26,7 +26,7 @@ namespace Registro_Detalle.BLL
             bool existe;
             Contexto contexto = new Contexto();
             try{
-                existe = contexto.Ordenes.Any(o => o.OrdenID== id);
+                existe = contexto.Suplidores.Any(o => o.SuplidorID== id);
             }
             catch(Exception){
                 throw;
@@ -37,26 +37,14 @@ namespace Registro_Detalle.BLL
             return existe;
         }
         
-        private static bool Insertar(Ordenes ordenes)
+        private static bool Insertar(Suplidores suplidores)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
-                contexto.Ordenes.Add(ordenes);
+                contexto.Suplidores.Add(suplidores);
                 paso = contexto.SaveChanges() > 0;
-
-              /*  List<OrdenesDetalle> detalle = ordenes.OrdenesDetalle;
-                foreach (OrdenesDetalle det in detalle)
-                {
-                    Productos productos = OrdenesBLL.Buscar(det.ProductosID);
-                    if (productos != null)
-                    {
-                        productos.Productos += Convert.ToSingle(det.Monto);
-                        OrdenesBLL.Guardar(ProductosID);
-                    }
-                }
-             */
                 
             }
             catch (Exception)
@@ -70,16 +58,16 @@ namespace Registro_Detalle.BLL
             return paso;
         }
 
-        public static bool Modificar(Ordenes ordenes){
+        public static bool Modificar(Suplidores suplidores){
             bool Modificado = false;
             Contexto contexto = new Contexto();
             try{
-                contexto.Database.ExecuteSqlRaw($"Delete FROM OrdenesDetalle Where OrdenID = {ordenes.OrdenID}");
-                foreach(var anterior in ordenes.OrdenesDetalle)
+                contexto.Database.ExecuteSqlRaw($"Delete FROM OrdenesDetalle Where OrdenID = {suplidores.SuplidorID}");
+                foreach(var anterior in suplidores.OrdenesDetalle)
                 {
                     contexto.Entry(anterior).State =EntityState.Added;
                 }
-                contexto.Entry(ordenes).State = EntityState.Modified;
+                contexto.Entry(suplidores).State = EntityState.Modified;
                 Modificado = (contexto.SaveChanges()>0);
             }
             catch(Exception){
@@ -95,8 +83,8 @@ namespace Registro_Detalle.BLL
             bool Eliminado = false;
             Contexto contexto = new Contexto();
             try{
-                var ordenes = contexto.Ordenes.Find(id);
-                contexto.Entry(ordenes).State = EntityState.Deleted;
+                var suplidores = contexto.Suplidores.Find(id);
+                contexto.Entry(suplidores).State = EntityState.Deleted;
                 Eliminado = contexto.SaveChanges()>0;
             }
 
@@ -109,11 +97,11 @@ namespace Registro_Detalle.BLL
             return Eliminado;
         }
 
-        public static Ordenes Buscar(int id){
-            Ordenes ordenes = new Ordenes();
+        public static Suplidores Buscar(int id){
+            Suplidores suplidores = new Suplidores();
             Contexto contexto = new Contexto();
             try{
-                ordenes = contexto.Ordenes.Include(x => x.OrdenesDetalle).Where(p => p.OrdenID  == id).SingleOrDefault();
+                suplidores = contexto.Ordenes.Include(x => x.OrdenesDetalle).Where(p => p.SuplidorID  == id).SingleOrDefault();
             }
             catch(Exception){
                 throw;
@@ -121,17 +109,17 @@ namespace Registro_Detalle.BLL
             } finally{
                 contexto.Dispose();
             }
-            return ordenes;
+            return suplidores;
         }
-
-    public static List <Ordenes> GetList(Expression<Func<Ordenes, bool>> ordenes)
+        
+        public static List <Suplidores> GetList(Expression<Func<Suplidores, bool>> suplidores)
         {
-            List<Ordenes> Lista = new List<Ordenes>();
+            List<Suplidores> Lista = new List<Suplidores>();
             Contexto contexto = new Contexto();
 
             try
             {
-                Lista = contexto.Ordenes.Where(ordenes).ToList();
+                Lista = contexto.Suplidores.Where(suplidores).ToList();
             }
             catch (Exception)
             {
@@ -143,6 +131,5 @@ namespace Registro_Detalle.BLL
             }
             return Lista;
     }
-
     }
 }
