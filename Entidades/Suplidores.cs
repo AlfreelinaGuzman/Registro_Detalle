@@ -7,15 +7,15 @@ namespace Registro_Detalle.Entidades{
 
     public class Suplidores{
         [Key]
-        public int SulidoresID { get; set; }
+        public int SuplidorID { get; set; }
         public string Nombres { get; set; }
 
-        [ForeignKey("SuplidoresID")]
+        [ForeignKey("SuplidorID")]
         public virtual List<OrdenesDetalle> OrdenesDetalle {get; set;} 
 
         public Suplidores()
         {
-            Suplidores = 0;
+            SuplidorID = 0;
             OrdenesDetalle = new List<OrdenesDetalle>();
         }
 

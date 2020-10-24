@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Registro_Detalle.UI.Registro;
+using Registro_Detalle.UI.Consultas;
 
 namespace Registro_Detalle
 {
@@ -29,6 +30,12 @@ namespace Registro_Detalle
           private void RegistrarOrden_Click(object sender, RoutedEventArgs e)
         {
             rOrdenes ventana = new rOrdenes();
+            ventana.Show();
+        }
+
+          private void ConsultarOrden_Click(object sender, RoutedEventArgs e)
+        {
+            cOrdenes ventana = new cOrdenes();
             ventana.Show();
         }
     }

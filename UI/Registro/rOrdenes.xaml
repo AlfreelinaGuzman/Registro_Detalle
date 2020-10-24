@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registro_Detalle.UI.Registro"
         mc:Ignorable="d"
-        Title="Registro de Ordenes" Height="557" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="Registro de Ordenes" Height="520" Width="460" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
 	<Grid>
     
 		<StackPanel Orientation= "Vertical" Margin="10,10,10,10">
@@ -70,19 +70,19 @@
     <StackPanel Orientation= "Horizontal" Margin="0,0">
                 <DataGrid x:Name="DetalleDataGrid" Height="165" ItemsSource="{Binding OrdenesDetalle}" AutoGenerateColumns="False" Width="418"  IsReadOnly="True" Margin="0,0,120,0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="ClienteDataGridTextColum" Header="Cliente" />
-                        <DataGridTextColumn Header="Valor" Binding="{Binding Valor}"/>
+                        <DataGridTextColumn Header="ProductosID" Binding="{Binding ProductosID}"/>
+                        <DataGridTextColumn Header="SuplidorID" Binding="{Binding SuplidorID}"/>
+                        <DataGridTextColumn Header= "Descripcion" Binding="{Binding Productos.Descripcion}"/>
+                        <DataGridTextColumn Header= "Cantidad" Binding="{Binding Productos.Cantidad}"/>
+                        <DataGridTextColumn Header= "Costo" Binding="{Binding Productos.Costo}"/>
+                        <DataGridTextColumn Header= "Inventario" Binding="{Binding Productos.Inventario}"/>
                     </DataGrid.Columns>
                 </DataGrid> 
     </StackPanel>
 
-    <!--total-->
-        <Label Content= "Total" Margin="0,0"/>
-        <TextBox x:Name= "TotalTextBox" Width="200" Text= "{Binding Total}" Height= "20" HorizontalAlignment= "Left"/>
-
 <StackPanel Orientation= "Horizontal" Margin="0,10">
     <!-- Boton Nuevo-->
-        <Button x:Name ="NuevoButton"  Width = "80" Height = "30">
+        <Button x:Name ="NuevoButton"  Width = "80" Height = "30" Click ="NuevoButton_Click" >
         <StackPanel Orientation= "Horizontal">
         <Image Source= "/Imagenes/Nuevo.png" Width="20" Height= "20"/>  
         <Label Content=" Nuevo"/>
@@ -98,7 +98,7 @@
         </Button>   
 
     <!-- Boton Eliminar-->
-        <Button x:Name ="EliminarButton" Margin="0,0" Width = "80" Height = "30" >
+        <Button x:Name ="EliminarButton" Margin="0,0" Width = "80" Height = "30" Click ="EliminarButton_Click" >
         <StackPanel Orientation= "Horizontal">
         <Image Source= "/Imagenes/Eliminar.png" Width="20" Height= "20"/>  
         <Label Content=" Eliminar"/>

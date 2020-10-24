@@ -46,16 +46,17 @@ namespace Registro_Detalle.BLL
                 contexto.Ordenes.Add(ordenes);
                 paso = contexto.SaveChanges() > 0;
 
-              /*  List<MorasDetalle> detalle = mora.MorasDetalle;
-                foreach (MorasDetalle det in detalle)
+              /*  List<OrdenesDetalle> detalle = ordenes.OrdenesDetalle;
+                foreach (OrdenesDetalle det in detalle)
                 {
-                    Prestamo prestamo = PrestamoBLL.Buscar(det.PrestamoId);
-                    if (prestamo != null)
+                    Productos productos = OrdenesBLL.Buscar(det.ProductosID);
+                    if (productos != null)
                     {
-                        prestamo.Mora += Convert.ToSingle(det.Valor);
-                        PrestamoBLL.Guardar(prestamo);
+                        productos.Productos += Convert.ToSingle(det.Monto);
+                        OrdenesBLL.Guardar(ProductosID);
                     }
                 }*/
+                
             }
             catch (Exception)
             {

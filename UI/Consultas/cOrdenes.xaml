@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registro_Detalle.UI.Consultas"
         mc:Ignorable="d"
-        Title="Consultar Ordenes" Height="450" Width="700">
+        Title="Consultar Ordenes" Height="450" Width="650">
     <StackPanel Orientation="Vertical" Margin="10,5,10,0">
         <StackPanel Orientation="Horizontal" Height="58">
             <StackPanel Margin="5,0">
@@ -21,10 +21,10 @@
                 <Label Content="Critero:"/>
                 <TextBox x:Name="CriterioTextBox" Width="100" Height="25"/>
             </StackPanel>
-            <Button x:Name="ConsultarButton" Height="30" Width="85" Margin="0,20,0,0" Click="ConsultarButton_Click">
+            <Button x:Name="ConsultarButton" Height="30" Width="85" Margin="0,20,0,0" Click= "ConsultarButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="18" Height="18" Source= "/Imagenes/Buscar.png"/>
-                    <Label Content="Buscar"/>
+                    <Image Width="18" Height="18" Source= "/Imagenes/Consultar.png"/>
+                    <Label Content="Consultar"/>
                 </StackPanel>
             </Button>
         </StackPanel>

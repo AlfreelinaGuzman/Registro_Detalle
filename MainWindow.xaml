@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registro_Detalle"
         mc:Ignorable="d"
-        Title="Menu Principal" Height="450" Width="800">
+        Title="Menu Principal" Height="200" Width="450">
     <Grid>
         <StackPanel>
             <Menu Height = "20" VerticalAlignment="Top">
@@ -16,8 +16,8 @@
                 </MenuItem>
 
                 <MenuItem Header= "Consultas" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Top">
-                 <!--   <MenuItem x:Name="Consultar_Persona" Header="Consultar Persona" Click="Consulta_Personas_Click"/>
-                        <MenuItem x:Name="Consultar_Prestamo" Header="Consultar Prestamo" Click="ConsultarPrestamo_Click"/>-->
+                   <MenuItem x:Name="Consultar_Orden" Header="Consultar Orden" Click="ConsultarOrden_Click"/>
+                         <!--<MenuItem x:Name="Consultar_Prestamo" Header="Consultar Prestamo" Click="ConsultarPrestamo_Click"/>-->
                 </MenuItem>
             </Menu>
         </StackPanel>  

@@ -19,7 +19,7 @@ using Registro_Detalle.DAL;
 namespace Registro_Detalle.UI.Registro
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for rOrdenes.xaml
     /// </summary>
     public partial class rOrdenes: Window
     {
@@ -28,9 +28,14 @@ namespace Registro_Detalle.UI.Registro
         public rOrdenes ()
         {
             InitializeComponent();
-           /* PrestamoIDComboBox.ItemsSource = PrestamoBLL.GetList();
-            PrestamoIDComboBox.SelectedValuePath = "PrestamoID";
-            PrestamoIDComboBox.DisplayMemberPath = "PrestamoID";*/
+            /*ProductosIDComboBox.ItemsSource = OrdenesBLL.GetList();
+            ProductosIDComboBox.SelectedValuePath = "ProductosID";
+            ProductosIDComboBox.DisplayMemberPath = "ProductosID";
+
+            SuplidorIDComboBox.ItemsSource = OrdenesBLL.GetList();
+            SuplidorIDComboBox.SelectedValuePath = "SuplidorID";
+            SuplidorIDComboBox.DisplayMemberPath = "SuplidorID";
+            */
             this.DataContext = ordenes;
             OrdenIDTextBox.Text = "0";
         
@@ -59,23 +64,6 @@ namespace Registro_Detalle.UI.Registro
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
             bool paso = false;
-            
-            if (ordenes.OrdenID == 0)
-            {
-                paso = OrdenesBLL.Guardar(ordenes);
-            }
-            else
-            {
-                if (Existe())
-                {
-                    paso = OrdenesBLL.Guardar(ordenes);
-                }
-                else
-                {
-                    MessageBox.Show("No existe en la base de datos", "Error");
-                }
-            }
-
             if (paso)
             {
                 Limpiar();
@@ -94,10 +82,14 @@ namespace Registro_Detalle.UI.Registro
 
             Limpiar();
 
-            if(MorasBLL.Eliminar(id))
+            if(OrdenesBLL.Eliminar(id))
                 MessageBox.Show("Se elimino Correctamente");
             else
                 MessageBox.Show(OrdenIDTextBox.Text,"No se pudo eliminar!");
+        }
+        private void NuevoButton_Click(object sender, RoutedEventArgs e)
+        {
+            Limpiar();
         }
 
         private void BuscarButton_Click(object sender, RoutedEventArgs e)
@@ -119,29 +111,28 @@ namespace Registro_Detalle.UI.Registro
         {
             Contexto context = new Contexto();
             ordenes.Monto += Convert.ToDecimal(MontoTextBox.Text);
-            ordenes.OrdenesDetalle.Add(new OrdenesDetalle(ordenes.OrdenID, Convert.ToInt32(SumplidorIDComboBox.SelectedValue), Convert.ToDecimal(MontoTextBox.Text)));
-            
+           // ordenes.OrdenesDetalle.Add(new OrdenesDetalle(ordenes.OrdenID, Convert.ToInt32(SuplidorIDComboBox.SelectedValue), Convert.ToInt32(ProductosIDComboBox.SelectedValue), Convert.ToDecimal(MontoTextBox.Text)));            
 
             this.DataContext = null;
             this.DataContext = ordenes;
 
-            ValorTextBox.Clear();
+            MontoTextBox.Clear();
         }
 
         private void RemoverBoton_Click(object sender, RoutedEventArgs e)
         {
             if (DetalleDataGrid.Items.Count >= 1 && DetalleDataGrid.SelectedIndex <= DetalleDataGrid.Items.Count - 1)
             {
-                OrdenesDetalle mora = (OrdenesDetalle)DetalleDataGrid.SelectedValue;
-                ordenes.Monto -= ordenes.Monto;
-                ordenes.OrdenesDetalle.RemoveAt(DetalleDataGrid.SelectedIndex);
+                OrdenesDetalle ordenes = (OrdenesDetalle)DetalleDataGrid.SelectedValue;
+                //ordenes.Monto -= ordenes.Monto;
+             //   ordenes.OrdenesDetalle.RemoveAt(DetalleDataGrid.SelectedIndex);
                 this.DataContext = null;
                 this.DataContext = ordenes;
             }
         }
         private bool Existe()
         {
-            Moras esValido = OrdenesBLL.Buscar(ordenes.OrdenID);
+            Ordenes esValido = OrdenesBLL.Buscar(ordenes.OrdenID);
 
             return (esValido != null);
         }

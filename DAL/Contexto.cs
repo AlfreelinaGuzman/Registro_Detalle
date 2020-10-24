@@ -16,13 +16,18 @@ namespace Registro_Detalle.DAL{
         optionsBuilder.UseSqlite(@"Data Source= DATA/Ordenes.db");
     }
     
-    protected override void OnModelCreating(ModelBuilder moderBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        moderBuilder.Entity <Suplidores>().HasData(new Suplidores {SuplidoresID=1, Nombres="Ramon"});
-        moderBuilder.Entity <Suplidores>().HasData(new Suplidores {SuplidoresID=2, Nombres="Pablo"});
-        moderBuilder.Entity <Suplidores>().HasData(new Suplidores {SuplidoresID=3, Nombres="Cristian"});
+        modelBuilder.Entity <Suplidores>().HasData(new Suplidores {SuplidorID=1, Nombres="Ramon"});
+        modelBuilder.Entity <Suplidores>().HasData(new Suplidores {SuplidorID=2, Nombres="Pablo"});
+        modelBuilder.Entity <Suplidores>().HasData(new Suplidores {SuplidorID=3, Nombres="Cristian"});
 
-        moderBuilder.Entity <Productos>().HasData(new Productos {ProductosID=1, Descripcion= "Arroz", Costo= 50.99, Inventario= 50});
+
+        modelBuilder.Entity <Productos>().HasData(new Productos {ProductosID=1, Descripcion="Arroz", Costo= 22, Inventario=10});
+        modelBuilder.Entity <Productos>().HasData(new Productos {ProductosID=2, Descripcion="Azucar", Costo= 50, Inventario=6});
+        modelBuilder.Entity <Productos>().HasData(new Productos {ProductosID=3, Descripcion="Chocolate", Costo= 25, Inventario=20});
+
     }
+
  }   
 }
