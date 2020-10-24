@@ -1,0 +1,6 @@
+obj/Debug/*.*
+obj/*.*
+bin/Debug/*.*
+bin/*.*
+
+obj/Release/*.*
