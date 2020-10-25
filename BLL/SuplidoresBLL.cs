@@ -101,7 +101,7 @@ namespace Registro_Detalle.BLL
             Suplidores suplidores = new Suplidores();
             Contexto contexto = new Contexto();
             try{
-                suplidores = contexto.Ordenes.Include(x => x.OrdenesDetalle).Where(p => p.SuplidorID  == id).SingleOrDefault();
+                suplidores = contexto.Suplidores.Find();
             }
             catch(Exception){
                 throw;
@@ -131,5 +131,26 @@ namespace Registro_Detalle.BLL
             }
             return Lista;
     }
+
+    public static List <Suplidores> GetList()
+        {
+            List<Suplidores> Lista = new List<Suplidores>();
+            Contexto contexto = new Contexto();
+
+            try
+            {
+                Lista = contexto.Suplidores.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                contexto.Dispose();
+            }
+            return Lista;
+        }
+
     }
 }

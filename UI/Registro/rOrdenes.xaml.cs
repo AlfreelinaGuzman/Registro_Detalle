@@ -28,26 +28,22 @@ namespace Registro_Detalle.UI.Registro
         public rOrdenes ()
         {
             InitializeComponent();
+            this.DataContext = ordenes;
+
             ProductosIDComboBox.ItemsSource = ProductosBLL.GetList();
             ProductosIDComboBox.SelectedValuePath = "ProductosID";
-            ProductosIDComboBox.DisplayMemberPath = "ProductosID";
+            ProductosIDComboBox.DisplayMemberPath = "Descripcion";
 
             SuplidorIDComboBox.ItemsSource = SuplidoresBLL.GetList();
             SuplidorIDComboBox.SelectedValuePath = "SuplidorID";
-            SuplidorIDComboBox.DisplayMemberPath = "SuplidorID";
-        
-            Limpiar();
-        
+            SuplidorIDComboBox.DisplayMemberPath = "Nombres";
+
         }
 
         private void Limpiar()
         {
-            OrdenIDTextBox.Text = "0";
-            FechaDatePickerTextBox.Text = Convert.ToString(DateTime.Now);
-            MontoTextBox.Text = "0";
-
-          // TotalTextBox_TextChanged.ItemsSouce = new List<MorasDetalle>();
-            Actualizar();
+            ordenes = new Ordenes();
+            this.DataContext = ordenes;
         }
 
            private void Actualizar() 
@@ -64,7 +60,7 @@ namespace Registro_Detalle.UI.Registro
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
             bool paso = false;
-            if (paso)
+            if (OrdenesBLL.Guardar(ordenes))
             {
                 Limpiar();
                 MessageBox.Show("Guardado!", "Exito",
@@ -94,12 +90,12 @@ namespace Registro_Detalle.UI.Registro
 
         private void BuscarButton_Click(object sender, RoutedEventArgs e)
         {
-            Ordenes anterior = OrdenesBLL.Buscar(Convert.ToInt32(OrdenIDTextBox));
+            Ordenes anterior = OrdenesBLL.Buscar(Convert.ToInt32(OrdenIDTextBox.Text));
 
             if(anterior != null)
             {
                 ordenes = anterior;
-                Actualizar();
+                this.DataContext = ordenes;
             }
             else
             {
@@ -109,13 +105,17 @@ namespace Registro_Detalle.UI.Registro
 
         private void AgregarBoton_Click(object sender, RoutedEventArgs e)
         {
-            Contexto context = new Contexto();
             ordenes.Monto += Convert.ToDecimal(MontoTextBox.Text);
-           // ordenes.OrdenesDetalle.Add(new OrdenesDetalle(ordenes.OrdenID, Convert.ToInt32(SuplidorIDComboBox.SelectedValue), Convert.ToInt32(ProductosIDComboBox.SelectedValue), Convert.ToDecimal(MontoTextBox.Text)));            
+            var detalle = new OrdenesDetalle{
+                ID = 0,
+                OrdenID = int.Parse(OrdenIDTextBox.Text),
+                SuplidorID = int.Parse(SuplidorIDComboBox.SelectedValue.ToString()),
+                Cantidad = 0,
+                Costo = 0
+            };          
 
-            this.DataContext = null;
-            this.DataContext = ordenes;
-
+            ordenes.OrdenesDetalle.Add(detalle);
+            Actualizar();
             MontoTextBox.Clear();
         }
 

@@ -74,11 +74,6 @@ namespace Registro_Detalle.BLL
             bool Modificado = false;
             Contexto contexto = new Contexto();
             try{
-                contexto.Database.ExecuteSqlRaw($"Delete FROM OrdenesDetalle Where OrdenID = {ordenes.OrdenID}");
-                foreach(var anterior in ordenes.OrdenesDetalle)
-                {
-                    contexto.Entry(anterior).State =EntityState.Added;
-                }
                 contexto.Entry(ordenes).State = EntityState.Modified;
                 Modificado = (contexto.SaveChanges()>0);
             }
@@ -110,7 +105,7 @@ namespace Registro_Detalle.BLL
         }
 
         public static Ordenes Buscar(int id){
-            Ordenes ordenes = new Ordenes();
+            Ordenes ordenes;
             Contexto contexto = new Contexto();
             try{
                 ordenes = contexto.Ordenes.Include(x => x.OrdenesDetalle).Where(p => p.OrdenID  == id).SingleOrDefault();
@@ -143,6 +138,26 @@ namespace Registro_Detalle.BLL
             }
             return Lista;
     }
+
+    public static List <Ordenes> GetList()
+        {
+            List<Ordenes> Lista = new List<Ordenes>();
+            Contexto contexto = new Contexto();
+
+            try
+            {
+                Lista = contexto.Ordenes.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                contexto.Dispose();
+            }
+            return Lista;
+        }
 
     }
 }

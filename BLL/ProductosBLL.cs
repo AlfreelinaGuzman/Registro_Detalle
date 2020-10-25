@@ -130,5 +130,26 @@ namespace Registro_Detalle.BLL
             }
             return Lista;
     }
+
+    public static List <Productos> GetList()
+        {
+            List<Productos> Lista = new List<Productos>();
+            Contexto contexto = new Contexto();
+
+            try
+            {
+                Lista = contexto.Productos.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                contexto.Dispose();
+            }
+            return Lista;
+        }
+
     }
 }

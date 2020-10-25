@@ -17,7 +17,7 @@
          
         
     <!--Boton Buscar-->
-        <Button x:Name ="BuscarButton" Margin="10,0" Width = "70" Height = "30" >
+        <Button x:Name ="BuscarButton" Margin="10,0" Width = "70" Height = "30" Click ="BuscarButton_Click"  >
              <StackPanel Orientation= "Horizontal">       
                 <Image Source= "/Imagenes/Buscar.png" Width="20" Height= "20"/>  
                 <Label Content=" Buscar"/>
@@ -27,17 +27,17 @@
 
     <!--Fecha-->
         <Label Content="Fecha: " HorizontalAlignment="Left" />
-        <DatePicker x:Name= "FechaDatePickerTextBox" Width="200" Text="{Binding Fecha}" Height= "20" HorizontalAlignment="Left"/>
+        <DatePicker x:Name= "FechaDatePickerTextBox" Width="200" SelectedDate="{Binding Fecha}" Height= "20" HorizontalAlignment="Left"/>
    
    <!--SuplidorID-->
         <StackPanel Orientation="Vertical">
-            <Label Content="SuplidorID" HorizontalAlignment="Left" />
+            <Label Content="Suplidor" HorizontalAlignment="Left" />
             <ComboBox x:Name= "SuplidorIDComboBox" Width="200" Height= "20" HorizontalAlignment= "Left" SelectedValue="{Binding SuplidorID}"/>
         </StackPanel> 
 
     <!--PoductosID-->
         <StackPanel Orientation="Vertical">
-            <Label Content="ProductosID" HorizontalAlignment="Left" />
+            <Label Content="Productos" HorizontalAlignment="Left" />
             <ComboBox x:Name= "ProductosIDComboBox"  Width="200" Height= "20" HorizontalAlignment= "Left" SelectedValue="{Binding ProductosID}" />
         </StackPanel> 
 
@@ -70,8 +70,8 @@
     <StackPanel Orientation= "Horizontal" Margin="0,0">
                 <DataGrid x:Name="DetalleDataGrid" Height="165" ItemsSource="{Binding OrdenesDetalle}" AutoGenerateColumns="False" Width="418"  IsReadOnly="True" Margin="0,0,120,0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ProductosID" SelectedValue="{Binding ProductosID}"/>
-                        <DataGridTextColumn Header="SuplidorID" SelectedValue="{Binding SuplidorID}"/>
+                        <DataGridTextColumn Header="ProductosID" Binding="{Binding ProductosID}"/>
+                        <DataGridTextColumn Header="SuplidorID" Binding="{Binding SuplidorID}"/>
                         <DataGridTextColumn Header= "Descripcion" Binding="{Binding Productos.Descripcion}"/>
                         <DataGridTextColumn Header= "Cantidad" Binding="{Binding Productos.Cantidad}"/>
                         <DataGridTextColumn Header= "Costo" Binding="{Binding Productos.Costo}"/>
